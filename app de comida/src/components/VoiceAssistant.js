@@ -16,7 +16,6 @@ const VoiceAssistant = () => {
   const isMobile = window.innerWidth <= 640;
   // Panel oculto por defecto en móvil, visible en escritorio
   const [isPanelVisible, setIsPanelVisible] = useState(() => window.innerWidth > 640);
-  const [showQuickCommands, setShowQuickCommands] = useState(false);
 
   useEffect(() => {
     if ('speechSynthesis' in window) {
@@ -206,49 +205,6 @@ const VoiceAssistant = () => {
                   </>
                 )}
               </button>
-            </div>
-          </>
-        )}
-        {/* Botón para mostrar/ocultar comandos rápidos */}
-        <div className="my-2 flex justify-center">
-          <button
-            className="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors"
-            onClick={() => setShowQuickCommands((v) => !v)}
-          >
-            {showQuickCommands ? 'Ocultar comandos rápidos' : 'Mostrar comandos rápidos'}
-          </button>
-        </div>
-        {/* Comandos rápidos y ayuda, solo si showQuickCommands está activo */}
-        {showQuickCommands && (
-          <>
-            <h4 className="text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-2 text-center">Comandos rápidos:</h4>
-            <div className="grid grid-cols-1 gap-2">
-              {[
-                'Buscar pizza',
-                'Agregar al carrito',
-                'Cambiar modo',
-                'Ir a promociones',
-                'Ir a métodos de pago',
-                'Ir a preguntas frecuentes',
-                'Ir a soporte de voz',
-                'Ir a tutorial de audio',
-                'Leer total del carrito',
-                'Leer promociones',
-                'Repetir',
-                'Ayuda'
-              ].map((command) => (
-                <button
-                  key={command}
-                  onClick={() => {
-                    speak(`Ejecutando: ${command}`);
-                    handleVoiceCommand(command, navigate);
-                  }}
-                  className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded transition-colors w-full"
-                  aria-label={`Ejecutar comando: ${command}`}
-                >
-                  {command}
-                </button>
-              ))}
             </div>
           </>
         )}
