@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Volume2, X } from 'lucide-react';
+import { Mic, MicOff, Volume2, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { useAccessibility } from '../contexts/AccessibilityContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -11,6 +11,10 @@ const VoiceAssistant = () => {
   const [showIndicator, setShowIndicator] = useState(false);
   const [lastCommand, setLastCommand] = useState('');
   const recognitionRef = useRef(null);
+  const [isPanelVisible, setIsPanelVisible] = useState(true);
+
+  // Detectar si es móvil
+  const isMobile = window.innerWidth <= 640;
 
   // Detener la voz al cambiar de página
   useEffect(() => {
@@ -91,6 +95,19 @@ const VoiceAssistant = () => {
     }
   };
 
+  // Botón flotante para mostrar el panel (solo en móvil y cuando está oculto)
+  if (isMobile && !isPanelVisible) {
+    return (
+      <button
+        className="fixed bottom-4 right-4 z-50 bg-blue-600 text-white p-3 rounded-full shadow-lg sm:hidden"
+        onClick={() => setIsPanelVisible(true)}
+        aria-label="Mostrar asistente de voz"
+      >
+        <Volume2 className="h-6 w-6" />
+      </button>
+    );
+  }
+
   return (
     <>
       {/* Indicador de escucha flotante */}
@@ -112,7 +129,17 @@ const VoiceAssistant = () => {
 
       {/* Panel de asistente de voz */}
       <div className="fixed bottom-2 left-2 right-2 z-40 voice-assistant-panel sm:bottom-6 sm:left-6 sm:right-auto">
-        <div className="bg-white rounded-lg shadow-lg p-2 sm:p-4 max-w-sm w-full mx-auto voice-assistant-panel">
+        <div className="bg-white rounded-lg shadow-lg p-2 sm:p-4 max-w-sm w-full mx-auto voice-assistant-panel relative">
+          {/* Botón para ocultar el panel (solo en móvil) */}
+          {isMobile && (
+            <button
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 sm:hidden"
+              onClick={() => setIsPanelVisible(false)}
+              aria-label="Ocultar asistente de voz"
+            >
+              <ChevronDown className="h-5 w-5" />
+            </button>
+          )}
           <div className="flex items-center justify-between mb-2 sm:mb-3">
             <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center">
               <Volume2 className="h-5 w-5 mr-2" />
