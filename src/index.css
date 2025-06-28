@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Variables CSS para accesibilidad */
+  --font-size-base: 1rem;
+  --font-size-large: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  
+  --color-primary: #3b82f6;
+  --color-secondary: #64748b;
+  --color-accent: #f59e0b;
+  --color-background: #ffffff;
+  --color-text: #1f2937;
+  --color-border: #e5e7eb;
+  
+  --spacing-button: 0.75rem 1.5rem;
+  --border-radius: 0.5rem;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* Estilos base para accesibilidad */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Focus visible para navegación con teclado */
+*:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--border-radius);
+}
+
+/* Botones accesibles */
+.btn {
+  @apply px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-200;
+  @apply focus:outline-none focus:ring-4 focus:ring-blue-500/50;
+  @apply hover:scale-105 active:scale-95;
+  min-height: 48px;
+  min-width: 48px;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+}
+
+.btn-accent {
+  @apply bg-orange-500 text-white hover:bg-orange-600;
+}
+
+/* Componentes accesibles */
+.card {
+  @apply bg-white rounded-xl shadow-lg p-6 border border-gray-200;
+  @apply hover:shadow-xl transition-shadow duration-200;
+  background-color: var(--color-background) !important;
+  color: var(--color-text) !important;
+}
+
+.input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  @apply text-lg;
+  min-height: 48px;
+}
+
+/* Utilidades para accesibilidad */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Animaciones suaves */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Estilos para modo alto contraste */
+.high-contrast {
+  --color-primary: #ffffff;
+  --color-secondary: #000000;
+  --color-accent: #ffff00;
+  --color-background: #000000;
+  --color-text: #ffffff;
+  --color-border: #ffffff;
+}
+
+/* Estilos para deuteranopia */
+.deuteranopia {
+  --color-primary: #0066cc;
+  --color-secondary: #ff9900;
+  --color-accent: #cc6600;
+  --color-background: #f0f8ff;
+  --color-text: #003366;
+}
+
+/* Estilos para protanopia */
+.protanopia {
+  --color-primary: #ffb300;
+  --color-secondary: #222831;
+  --color-accent: #ff5722;
+  --color-background: #181818;
+  --color-text: #ffffff;
+  --color-border: #ffb300;
+}
+
+/* Estilos para tritanopia */
+.tritanopia {
+  --color-primary: #cc0066;
+  --color-secondary: #00cc66;
+  --color-accent: #6600cc;
+  --color-background: #fff0f8;
+  --color-text: #660033;
+}
+
+.app-container, .bg-white, .rounded-lg, .rounded-xl, .shadow-lg {
+  background-color: var(--color-background) !important;
+  color: var(--color-text) !important;
+}
+
+.btn-primary.protanopia, .protanopia .btn-primary {
+  background-color: #ffb300 !important;
+  color: #181818 !important;
+}
+
+.btn-secondary.protanopia, .protanopia .btn-secondary {
+  background-color: #222831 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffb300 !important;
+}
+
+.card.protanopia, .protanopia .card {
+  background-color: #222831 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffb300 !important;
+}
+
+/* Colores específicos para el panel del asistente de voz, siempre accesibles */
+.voice-assistant-panel {
+  background-color: #fff !important;
+  color: #222 !important;
+}
+.voice-assistant-panel .btn, .voice-assistant-panel .btn-secondary {
+  background-color: #f3f4f6 !important;
+  color: #222 !important;
+  border: 1px solid #e5e7eb !important;
+}
+.voice-assistant-panel .btn-primary {
+  background-color: #2563eb !important;
+  color: #fff !important;
+}
+.voice-assistant-panel .bg-red-600,
+.voice-assistant-panel .bg-red-500 {
+  background-color: #dc2626 !important;
+  color: #fff !important;
+} 
