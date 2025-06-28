@@ -1,15 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Volume2, X } from 'lucide-react';
 import { useAccessibility } from '../contexts/AccessibilityContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const VoiceAssistant = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { voiceAssistant, speak, toggleVoiceAssistant, handleVoiceCommand } = useAccessibility();
   const [isListening, setIsListening] = useState(false);
   const [showIndicator, setShowIndicator] = useState(false);
   const [lastCommand, setLastCommand] = useState('');
   const recognitionRef = useRef(null);
+
+  // Detener la voz al cambiar de página
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  }, [location]);
 
   // Inicializar reconocimiento de voz solo una vez
   useEffect(() => {
@@ -103,20 +111,20 @@ const VoiceAssistant = () => {
       )}
 
       {/* Panel de asistente de voz */}
-      <div className="fixed bottom-6 left-6 z-40 voice-assistant-panel">
-        <div className="bg-white rounded-lg shadow-lg p-4 max-w-sm voice-assistant-panel">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+      <div className="fixed bottom-2 left-2 right-2 z-40 voice-assistant-panel sm:bottom-6 sm:left-6 sm:right-auto">
+        <div className="bg-white rounded-lg shadow-lg p-2 sm:p-4 max-w-sm w-full mx-auto voice-assistant-panel">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center">
               <Volume2 className="h-5 w-5 mr-2" />
               Asistente de Voz
             </h3>
             <div className={`w-3 h-3 rounded-full ${isListening ? 'bg-green-500 animate-pulse' : voiceAssistant ? 'bg-gray-400' : 'bg-red-500'}`} />
           </div>
           {/* Botón para activar/desactivar el asistente de voz */}
-          <div className="mb-4">
+          <div className="mb-2 sm:mb-4">
             <button
               onClick={toggleVoiceAssistant}
-              className={`w-full flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors mb-2 ${voiceAssistant ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-300 text-gray-700 hover:bg-gray-400'}`}
+              className={`w-full flex items-center justify-center px-2 py-2 sm:px-4 sm:py-2 rounded-lg font-medium transition-colors mb-2 text-sm sm:text-base ${voiceAssistant ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-300 text-gray-700 hover:bg-gray-400'}`}
               aria-label={voiceAssistant ? 'Desactivar asistente de voz' : 'Activar asistente de voz'}
             >
               {voiceAssistant ? (
@@ -132,7 +140,7 @@ const VoiceAssistant = () => {
               )}
             </button>
             {!voiceAssistant && (
-              <div className="bg-red-50 border border-red-200 rounded p-3 text-red-800 text-sm text-center">
+              <div className="bg-red-50 border border-red-200 rounded p-2 sm:p-3 text-red-800 text-xs sm:text-sm text-center">
                 El asistente de voz está desactivado. Actívalo para usar comandos por voz.
               </div>
             )}
@@ -140,15 +148,15 @@ const VoiceAssistant = () => {
           {/* Estado actual y controles solo si está activo */}
           {voiceAssistant && (
             <>
-              <div className="mb-4">
-                <p className="text-sm text-gray-600 mb-2">
+              <div className="mb-2 sm:mb-4">
+                <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">
                   Estado: <span className={isListening ? 'text-green-600 font-medium' : 'text-gray-500'}>
                     {isListening ? 'Escuchando' : 'Inactivo'}
                   </span>
                 </p>
                 {lastCommand && (
-                  <div className="bg-blue-50 p-3 rounded-lg">
-                    <p className="text-sm text-gray-700">
+                  <div className="bg-blue-50 p-2 sm:p-3 rounded-lg">
+                    <p className="text-xs sm:text-sm text-gray-700">
                       <strong>Último comando:</strong> "{lastCommand}"
                     </p>
                   </div>
@@ -157,7 +165,7 @@ const VoiceAssistant = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={isListening ? stopListening : startListening}
-                  className={`flex-1 flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors ${isListening ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-red-500 text-white hover:bg-red-600'}`}
+                  className={`flex-1 flex items-center justify-center px-2 py-2 sm:px-4 sm:py-2 rounded-lg font-medium transition-colors text-sm sm:text-base ${isListening ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-red-500 text-white hover:bg-red-600'}`}
                   aria-label={isListening ? 'Detener escucha' : 'Iniciar escucha'}
                 >
                   {isListening ? (
@@ -176,9 +184,9 @@ const VoiceAssistant = () => {
             </>
           )}
           {/* Comandos rápidos y ayuda */}
-          <div className="mt-4">
-            <h4 className="text-sm font-medium text-gray-900 mb-2">Comandos rápidos:</h4>
-            <div className="grid grid-cols-2 gap-2">
+          <div className="mt-2 sm:mt-4">
+            <h4 className="text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-2">Comandos rápidos:</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
                 'Buscar pizza',
                 'Agregar al carrito',
@@ -199,7 +207,7 @@ const VoiceAssistant = () => {
                     speak(`Ejecutando: ${command}`);
                     handleVoiceCommand(command, navigate);
                   }}
-                  className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded transition-colors"
+                  className="text-xs sm:text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded transition-colors w-full"
                   aria-label={`Ejecutar comando: ${command}`}
                 >
                   {command}
@@ -207,8 +215,8 @@ const VoiceAssistant = () => {
               ))}
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-gray-200">
-            <details className="text-sm">
+          <div className="mt-2 sm:mt-4 pt-2 sm:pt-3 border-t border-gray-200">
+            <details className="text-xs sm:text-sm">
               <summary className="cursor-pointer text-blue-600 hover:text-blue-700 font-medium">
                 Ver todos los comandos
               </summary>
