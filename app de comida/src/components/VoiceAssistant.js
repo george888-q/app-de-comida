@@ -1,3 +1,4 @@
+// Forzar redeploy para ver cambios en Vercel
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Volume2, X, ChevronDown } from 'lucide-react';
 import { useAccessibility } from '../contexts/AccessibilityContext';
