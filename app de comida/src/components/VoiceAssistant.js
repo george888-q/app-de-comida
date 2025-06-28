@@ -12,8 +12,9 @@ const VoiceAssistant = () => {
   const [showIndicator, setShowIndicator] = useState(false);
   const [lastCommand, setLastCommand] = useState('');
   const recognitionRef = useRef(null);
-  // Panel oculto por defecto en móvil, visible en escritorio
+  // Detectar si es móvil
   const isMobile = window.innerWidth <= 640;
+  // Panel oculto por defecto en móvil, visible en escritorio
   const [isPanelVisible, setIsPanelVisible] = useState(() => window.innerWidth > 640);
   const [showQuickCommands, setShowQuickCommands] = useState(false);
 
@@ -78,8 +79,6 @@ const VoiceAssistant = () => {
     }
   }, [voiceAssistant, isListening, speak]);
 
-  if (!voiceAssistant) return null;
-
   const startListening = () => {
     if (recognitionRef.current && !isListening) {
       recognitionRef.current.start();
@@ -99,7 +98,7 @@ const VoiceAssistant = () => {
         className="fixed bottom-4 left-4 z-[100] bg-blue-600 text-white p-2 rounded-full shadow-lg sm:hidden"
         onClick={() => setIsPanelVisible(true)}
         aria-label="Mostrar asistente de voz"
-        style={{ width: 44, height: 44 }}
+        style={{ width: 40, height: 40 }}
       >
         <Volume2 className="h-5 w-5" />
       </button>
@@ -107,7 +106,7 @@ const VoiceAssistant = () => {
   }
 
   return (
-    <>
+    <div style={{ display: voiceAssistant ? 'block' : 'none' }}>
       {/* Indicador de escucha flotante */}
       {showIndicator && (
         <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
@@ -128,7 +127,7 @@ const VoiceAssistant = () => {
       {/* Panel de asistente de voz compacto en móvil */}
       <div
         className="bg-white rounded-lg shadow-lg p-2 sm:p-4 max-w-xs w-full mx-auto voice-assistant-panel relative"
-        style={isMobile ? { position: 'fixed', bottom: 16, left: 16, right: 16, zIndex: 99, width: '90vw', maxWidth: 340 } : {}}
+        style={isMobile ? { position: 'fixed', bottom: 16, left: 16, right: 16, zIndex: 99, width: '92vw', maxWidth: 320, minHeight: 0 } : {}}
       >
         {/* Botón para ocultar el panel (solo en móvil) */}
         {isMobile && (
@@ -211,7 +210,7 @@ const VoiceAssistant = () => {
           </>
         )}
         {/* Botón para mostrar/ocultar comandos rápidos */}
-        <div className="my-2">
+        <div className="my-2 flex justify-center">
           <button
             className="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors"
             onClick={() => setShowQuickCommands((v) => !v)}
@@ -222,8 +221,8 @@ const VoiceAssistant = () => {
         {/* Comandos rápidos y ayuda, solo si showQuickCommands está activo */}
         {showQuickCommands && (
           <>
-            <h4 className="text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-2">Comandos rápidos:</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <h4 className="text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-2 text-center">Comandos rápidos:</h4>
+            <div className="grid grid-cols-1 gap-2">
               {[
                 'Buscar pizza',
                 'Agregar al carrito',
@@ -244,7 +243,7 @@ const VoiceAssistant = () => {
                     speak(`Ejecutando: ${command}`);
                     handleVoiceCommand(command, navigate);
                   }}
-                  className="text-xs sm:text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded transition-colors w-full"
+                  className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded transition-colors w-full"
                   aria-label={`Ejecutar comando: ${command}`}
                 >
                   {command}
@@ -292,7 +291,7 @@ const VoiceAssistant = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
