@@ -76,22 +76,22 @@ const AccessibilityPanel = () => {
       {isOpen && (
         <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={togglePanel}>
           <div 
-            className="fixed right-6 bottom-20 w-80 max-h-96 bg-white rounded-lg shadow-xl p-6 overflow-y-auto"
+            className="fixed right-2 left-2 sm:right-6 sm:left-auto bottom-20 w-full max-w-xs sm:max-w-md max-h-[90vh] bg-white rounded-lg shadow-xl p-2 sm:p-6 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-label="Panel de accesibilidad"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900 flex items-center">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 flex items-center">
                 <Palette className="h-5 w-5 mr-2" />
                 Accesibilidad
               </h2>
               <button
                 onClick={togglePanel}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600 text-xl sm:text-2xl"
                 aria-label="Cerrar panel de accesibilidad"
               >
-                <span className="text-2xl">×</span>
+                ×
               </button>
             </div>
 

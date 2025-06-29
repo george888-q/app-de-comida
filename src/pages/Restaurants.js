@@ -74,22 +74,22 @@ const Restaurants = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <div className="mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">
             Restaurantes
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-base sm:text-lg text-gray-600">
             Encuentra el restaurante perfecto con menús accesibles y deliciosos
           </p>
         </div>
 
         {/* Barra de búsqueda y filtros */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <div className="bg-white rounded-lg shadow-lg p-3 sm:p-6 mb-6 sm:mb-8">
           {/* Búsqueda */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
@@ -97,17 +97,17 @@ const Restaurants = () => {
                 placeholder="Buscar restaurantes o tipos de comida..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
+                className="w-full pl-10 pr-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-lg"
                 aria-label="Buscar restaurantes o tipos de comida"
               />
             </div>
           </div>
 
           {/* Botón de filtros móvil */}
-          <div className="md:hidden mb-4">
+          <div className="md:hidden mb-3 sm:mb-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="w-full flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-lg transition-colors"
+              className="w-full flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 sm:py-3 rounded-lg transition-colors"
               aria-label="Mostrar filtros"
               aria-expanded={showFilters}
             >
@@ -118,7 +118,7 @@ const Restaurants = () => {
 
           {/* Filtros */}
           <div className={`${showFilters ? 'block' : 'hidden'} md:block`}>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               {/* Filtro de cocina */}
               <div>
                 <label htmlFor="cuisine-filter" className="block text-sm font-medium text-gray-700 mb-2">
@@ -191,8 +191,8 @@ const Restaurants = () => {
         </div>
 
         {/* Resultados */}
-        <div className="mb-6">
-          <p className="text-gray-600">
+        <div className="mb-4 sm:mb-6">
+          <p className="text-gray-600 text-sm sm:text-base">
             {sortedRestaurants.length === 0 ? (
               'No se encontraron restaurantes con los filtros seleccionados.'
             ) : (
@@ -202,7 +202,7 @@ const Restaurants = () => {
         </div>
 
         {/* Lista de restaurantes */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {sortedRestaurants.map((restaurant) => (
             <Link
               key={restaurant.id}

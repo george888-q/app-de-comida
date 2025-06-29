@@ -11,23 +11,22 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 text-white text-sm sm:text-base">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 overflow-x-auto">
           {/* Información de la empresa */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+          <div className="col-span-1 md:col-span-2 mb-6 md:mb-0">
+            <div className="flex items-center space-x-2 mb-3 sm:mb-4">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">🍽️</span>
               </div>
-              <span className="text-xl font-bold">ComidaAccesible</span>
+              <span className="text-lg sm:text-xl font-bold">ComidaAccesible</span>
             </div>
-            <p className="text-gray-300 mb-4 leading-relaxed">
-              La primera aplicación de comida diseñada específicamente para personas con discapacidad visual 
-              y daltonismo. Nuestro compromiso es hacer que la experiencia de pedir comida sea accesible para todos.
+            <p className="text-gray-300 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-base">
+              La primera aplicación de comida diseñada específicamente para personas con discapacidad visual y daltonismo. Nuestro compromiso es hacer que la experiencia de pedir comida sea accesible para todos.
             </p>
-            <div className="flex items-center space-x-4 text-sm text-gray-400">
-              <div className="flex items-center space-x-1">
+            <div className="flex flex-wrap items-center space-x-4 text-xs sm:text-sm text-gray-400">
+              <div className="flex items-center space-x-1 mb-2 sm:mb-0">
                 <Accessibility className="h-4 w-4" />
                 <span>100% Accesible</span>
               </div>
@@ -179,9 +178,9 @@ const Footer = () => {
         </div>
 
         {/* Características de accesibilidad */}
-        <div className="mt-8 pt-8 border-t border-gray-800">
-          <h3 className="text-lg font-semibold mb-4 text-center">Características de Accesibilidad</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-800">
+          <h3 className="text-base sm:text-lg font-semibold mb-4 text-center">Características de Accesibilidad</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <div className="text-center">
               <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-white text-xl">🎤</span>

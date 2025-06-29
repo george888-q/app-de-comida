@@ -12,6 +12,7 @@ const VoiceAssistant = () => {
   const [lastCommand, setLastCommand] = useState('');
   const recognitionRef = useRef(null);
   const [isPanelVisible, setIsPanelVisible] = useState(true);
+  const [showQuickCommands, setShowQuickCommands] = useState(true);
 
   // Detectar si es móvil
   const isMobile = window.innerWidth <= 640;
@@ -212,35 +213,55 @@ const VoiceAssistant = () => {
           )}
           {/* Comandos rápidos y ayuda */}
           <div className="mt-2 sm:mt-4">
-            <h4 className="text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-2">Comandos rápidos:</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {[
-                'Buscar pizza',
-                'Agregar al carrito',
-                'Cambiar modo',
-                'Ir a promociones',
-                'Ir a métodos de pago',
-                'Ir a preguntas frecuentes',
-                'Ir a soporte de voz',
-                'Ir a tutorial de audio',
-                'Leer total del carrito',
-                'Leer promociones',
-                'Repetir',
-                'Ayuda'
-              ].map((command) => (
-                <button
-                  key={command}
-                  onClick={() => {
-                    speak(`Ejecutando: ${command}`);
-                    handleVoiceCommand(command, navigate);
-                  }}
-                  className="text-xs sm:text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded transition-colors w-full"
-                  aria-label={`Ejecutar comando: ${command}`}
-                >
-                  {command}
-                </button>
-              ))}
+            <div className="flex items-center justify-between mb-1 sm:mb-2">
+              <h4 className="text-xs sm:text-sm font-medium text-gray-900">Comandos rápidos:</h4>
+              <button
+                onClick={() => setShowQuickCommands((v) => !v)}
+                className="text-blue-600 hover:text-blue-800 text-xs sm:text-sm flex items-center"
+                aria-label={showQuickCommands ? 'Ocultar comandos rápidos' : 'Mostrar comandos rápidos'}
+                type="button"
+              >
+                {showQuickCommands ? (
+                  <>
+                    <ChevronUp className="h-4 w-4 mr-1" /> Ocultar
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4 mr-1" /> Mostrar
+                  </>
+                )}
+              </button>
             </div>
+            {showQuickCommands && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {[
+                  'Buscar pizza',
+                  'Agregar al carrito',
+                  'Cambiar modo',
+                  'Ir a promociones',
+                  'Ir a métodos de pago',
+                  'Ir a preguntas frecuentes',
+                  'Ir a soporte de voz',
+                  'Ir a tutorial de audio',
+                  'Leer total del carrito',
+                  'Leer promociones',
+                  'Repetir',
+                  'Ayuda'
+                ].map((command) => (
+                  <button
+                    key={command}
+                    onClick={() => {
+                      speak(`Ejecutando: ${command}`);
+                      handleVoiceCommand(command, navigate);
+                    }}
+                    className="text-xs sm:text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded transition-colors w-full"
+                    aria-label={`Ejecutar comando: ${command}`}
+                  >
+                    {command}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           <div className="mt-2 sm:mt-4 pt-2 sm:pt-3 border-t border-gray-200">
             <details className="text-xs sm:text-sm">
